@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LUXE Fashion Week - Magazine Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Basic CSS styles */
+        body {
+            background: #222;
+            font-family: "Fira Sans", sans-serif;
+            margin: 0;
+            color: #fff;
+        }
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(34, 34, 34, 0.9);
+            padding: 1rem;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        /* Other styles omitted for brevity */
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">LUXE</div>
+        <div class="nav-links" id="nav-links">
+            <a href="#home" class="nav-link active">HOME</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#collections" class="nav-link">COLLECTIONS</a>
+            <a href="#designers" class="nav-link">DESIGNERS</a>
+            <a href="#weddings" class="nav-link">EVENTS</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+            <svg class="icon sun-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zm0-2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM11 1H13V3H11zM11 21H13V23H11zM21 11V13H23V11zM1 11V13H3V11zM4.22 4.22L5.64 5.64 4.22 5.64 4.22 4.22zM18.36 18.36L19.78 19.78 18.36 19.78 18.36 18.36zM18.36 4.22L19.78 5.64 18.36 5.64 18.36 4.22zM4.22 18.36L5.64 19.78 4.22 19.78 4.22 18.36z"/>
+            </svg>
+            <svg class="icon moon-icon hidden" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
+        <div class="hamburger" id="hamburger" aria-label="Toggle navigation" role="button" tabindex="0">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video autoplay muted loop playsinline class="video-bg">
+            <source src="video.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-content" role="banner">
+            <h1 class="hero-title">UNLEASH NEW TRENDS</h1>
+            <p class="hero-subtitle">Celebrating the art of fashion and creativity</p>
+            <div class="hero-buttons">
+                <a href="#collections"><button class="hero-button view-collections-button">View Collections</button></a>
+                <button class="hero-button event-schedule-button" id="open-schedule-modal">Event Schedule</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="section" aria-label="Featured Collections">
+        <h1 class="section-title">Featured Collections</h1>
+        <div class="collections-container" id="collections-container">
+            <article class="collection-card" tabindex="0" data-page="collection-festive.html">
+                <figure class="collection-image">
+                    <img src="images/img1.png" alt="Festive 2025 Collection Image" />
+                    <figcaption class="collection-title">Festive 2025</figcaption>
+                </figure>
+                <div class="collection-info">
+                    <p>Explore the latest collection from top designers, a blend of tradition and modern aesthetics.</p>
+                </div>
+            </article>
+
+            <a href="summer-spring-2025.html" class="collection-card-link" tabindex="0" style="text-decoration:none;">
+                <article class="collection-card" tabindex="-1" data-page="summer-spring-2025.html">
+                    <figure class="collection-image">
+                        <img src="images/4.png" alt="Summer/Spring 2025 Collection Image" />
+                        <figcaption class="collection-title">Summer/Spring 2025</figcaption>
+                    </figure>
+                    <div class="collection-info">
+                        <p>Discover the upcoming trends for the season, featuring vibrant colors and fluid silhouettes.</p>
+                    </div>
+                </article>
+            </a>
+
+            <article class="collection-card hidden-card" tabindex="0" data-page="collection-autumn-winter.html">
+                <figure class="collection-image">
+                    <img src="images/img3.png" alt="Autumn/Winter 2024 Collection Image" />
+                    <figcaption class="collection-title">Autumn/Winter 2024</figcaption>
+                </figure>
+                <div class="collection-info">
+                    <p>Explore the anticipated trends for the cooler season, focusing on luxurious textures and rich tones.</p>
+                </div>
+            </article>
+
+            <article class="collection-card hidden-card" tabindex="0" data-page="collection-exclusive.html">
+                <figure class="collection-image">
+                    <img src="images/img2.png" alt="Exclusive Designs Image" />
+                    <figcaption class="collection-title">Exclusive Designs</figcaption>
+                </figure>
+                <div class="collection-info">
+                    <p>Unveiling limited-edition pieces that define bespoke elegance and avant-garde fashion statements.</p>
+                </div>
+            </article>
+
+            <article class="collection-card hidden-card" tabindex="0" data-page="collection-hautecouture.html">
+                <figure class="collection-image">
+                    <img src="images/h1.png" alt="Haute Couture Show Image" />
+                    <figcaption class="collection-title">Haute Couture 2025</figcaption>
+                </figure>
+                <div class="collection-info">
+                    <p>Witness the pinnacle of craftsmanship and artistry from the world's most revered fashion houses.</p>
+                </div>
+            </article>
+
+            <article class="collection-card hidden-card" tabindex="0" data-page="collection-readytowear.html">
+                <figure class="collection-image">
+                    <img src="images/r1.png" alt="Ready-to-Wear Debut Image" />
+                    <figcaption class="collection-title">Ready-to-Wear Debut</figcaption>
+                </figure>
+                <div class="collection-info">
+                    <p>Discover the accessible yet chic collections ready to define your everyday luxury and style.</p>
+                </div>
+            </article>
+        </div>
+        <button class="view-more-button" id="view-more-collections">See More Collections</button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section" aria-label="About LUXE Fashion Week">
+        <div class="about-video">
+            <video autoplay muted loop playsinline class="video2-bg">
+                <source src="images/summer 6.mp4" type="video/mp4" />
+                <source src="images/summer 6.mp4" type="video/webm" />
+            </video>
+        </div>
+        <div class="about-content">
+            <p class="about-text">
+                <span class="highlight">Welcome to LUXE Fashion Week</span>, where innovation meets elegance. We are more than just a showcase; we are a global movement celebrating the future of fashion. Our platform unites visionary designers, cutting-edge technology, and passionate enthusiasts. Experience the extraordinary fusion of art, culture, and style that defines LUXE.
+            </p>
+        </div>
+    </section>
+
+    <!-- Designers Section -->
+    <section id="designers" class="section" aria-label="Designers">
+        <h1 class="section-title">The 2025 Met Gala</h1>
+        <div class="designers-container">
+            <article class="designer-card" tabindex="0" data-page="designer-details-srk.html">
+                <figure class="designer-image">
+                    <img src="images/SRK.jpg" alt="Shah Rukh Khan at Met Gala 2025" />
+                </figure>
+                <h2 class="card-title">Met Gala 2025 Red Carpet Looks: See Every Celebrity Outfit and Dress</h2>
+                <h3 class="designer-name">BY SABYASACHI</h3>
+            </article>
+            <article class="designer-card" tabindex="0" data-page="designer-details-diljit.html">
+                <figure class="designer-image">
+                    <img src="images/DD.jpg" alt="Diljit Dosanjh at Met Gala 2025" />
+                </figure>
+                <h2 class="card-title">Everything You Need to Know About the 2025 Met Gala</h2>
+                <h3 class="designer-name">BY VOGUE</h3>
+            </article>
+            <article class="designer-card" tabindex="0" data-page="designer-details-emerging.html">
+                <figure class="designer-image">
+                    <img src="images/e1.png" alt="An emerging designer showcasing new styles" />
+                </figure>
+                <h2 class="card-title">Emerging Voices: The Next Generation of Fashion Innovators</h2>
+                <h3 class="designer-name">FEATURING VARIOUS ARTISTS</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- Weddings Section -->
+    <section id="weddings" class="section" aria-label="Wedding Collections and Events">
+        <h1 class="section-title">Wedding Collections</h1>
+        <div class="weddings" id="weddings-container">
+            <article tabindex="0" data-page="wedding-beach.html">
+                <figure>
+                    <img src="images/wed1.png" alt="Elegant Beach Wedding" />
+                </figure>
+                <h2 class="card-title">The Bride Wore Custom Schiaparelli for Her Elegant Beach Wedding on Hawaii’s Big Island</h2>
+                <p class="card-text">By Alexandra Macon</p>
+            </article>
+            <article tabindex="0" data-page="wedding-hawaii.html">
+                <figure>
+                    <img src="images/wed2.png" alt="Traditional Hawaiian Wedding" />
+                </figure>
+                <h2 class="card-title">The Bride Wore a Cathedral-Length Veil and Her Grandmother’s Traditional Hawaiian Jewelry to Marry on Oahu</h2>
+                <p class="card-text">By Shelby Wax</p>
+            </article>
+            <article tabindex="0" data-page="wedding-artnouveau.html">
+                <figure>
+                    <img src="images/wed3.png" alt="Art-Nouveau Wedding Dress" />
+                </figure>
+                <h2 class="card-title">The Bride Wore a Pearl-Embroidered Art-Nouveau-Inspired Dress for Her Wedding in California Wine Country</h2>
+                <p class="card-text">By Elise Taylor</p>
+            </article>
+            <article class="hidden-card" tabindex="0" data-page="wedding-fairytale.html">
+                <figure>
+                    <img src="images/f1.png" alt="Fairytale Wedding in a European Castle" />
+                </figure>
+                <h2 class="card-title">A Fairytale Come True: Inside This Royal-Inspired Wedding in a European Castle</h2>
+                <p class="card-text">By Vogue Weddings</p>
+            </article>
+            <article class="hidden-card" tabindex="0" data-page="wedding-garden.html">
+                <figure>
+                    <img src="images/i1.png" alt="Intimate Garden Wedding Celebration" />
+                </figure>
+                <h2 class="card-title">An Intimate Garden Celebration: Chic Decor & Sustainable Fashion Choices</h2>
+                <p class="card-text">By Eco-Bride Magazine</p>
+            </article>
+        </div>
+        <button class="view-more-button" id="view-more-events">See More Events</button>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" aria-label="Contact">
+        <div class="contact-content">
+            <h1 class="section-title">Contact Us</h1>
+            <div class="contact-number">
+                <h3>011-22-555</h3>
+            </div>
+            <p>Get in touch with us for inquiries, collaborations, or feedback. We would love to hear from you!</p>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="form-feedback-message"></div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 LUXE Fashion Week. All rights reserved.</p>
+    </footer>
+
+        <script>
+        // Lightbox functionality
+        function openLightbox(imageSrc) {
+            document.getElementById('lightbox-image').src = imageSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = this.name.value.trim();
+            const email = this.email.value.trim();
+            const message = this.message.value.trim();
+
+            if (name && email && message) {
+                document.getElementById('form-feedback-message').textContent = 'Thank you for your message!';
+                document.getElementById('form-feedback-message').style.opacity = 1;
+                this.reset();
+            } else {
+                document.getElementById('form-feedback-message').textContent = 'Please fill in all fields correctly.';
+                document.getElementById('form-feedback-message').style.opacity = 1;
+            }
+
+            // Hide feedback message after 3 seconds
+            setTimeout(() => {
+                document.getElementById('form-feedback-message').style.opacity = 0;
+            }, 3000);
+        });
+
+        // Hamburger menu toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        });
+
+        // Theme toggle functionality
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+        });
+    </script>
+</body>
+</html>

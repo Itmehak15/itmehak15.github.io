@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUXE Fashion Week</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <img src="images/logo.png" alt="LUXE Logo" class="logo" />
+            <div class="nav-links">
+                <a href="#about" class="active">ABOUT</a>
+                <a href="#collections">COLLECTIONS</a>
+                <a href="#designers">DESIGNERS</a>
+                <a href="#events">EVENTS</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <video autoplay muted loop playsinline class="video-bg">
+            <source src="video.mp4" type="video/mp4">
+            <!-- <source src="video.mp4" type="video/webm"> -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>UNLEASH NEW TRENDS</h1>
+            <p>Celebrating the art of fashion and creativity</p>
+            <div class="cta-buttons">
+                <a href="#collections" class="btn">View Collections</a>
+                <a href="#events" class="btn">Event Schedule</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-content">
+            <h1>About Us</h1>
+            <p>Discover the story behind Paris Fashion Week and its impact on the fashion industry.</p>
+        </div>
+    </section>
+
+    <section id="collections">
+        <h1>Featured Collections</h1>
+        <div class="collections-container">
+            <div class="collection-card">
+                <div class="collection-image">
+                    <img src="images/img1.png" alt="Collection 1" />
+                </div>
+                <h2>Festive 2025</h2>
+                <p>Explore the latest collection from top designers.</p>
+            </div>
+
+            <div class="collection-card">
+                <div class="collection-image">
+                    <img src="images/img4.png" alt="Collection 2" />
+                </div>
+                <h2>Summer/Spring 2025</h2>
+                <p>Discover the upcoming trends for the season.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="designers">
+        <h1>Featured Designers</h1>
+        <div class="designers-container">
+           <a href="luxluxury/k">
+            <div class="designer-card">
+                <div class="designer-image">
+                    <img src="images/SRK.jpg" alt="Designer 1" />
+                </div>
+                <h2>SHAH RUKH KHAN</h2>
+                <p>SRK Met Gala debut in custom sabayasahi featured a jewelled brooch, talisman chains, and a cane</p>
+                <p>By MANGLIEN GANGTE</p>
+                <p> 6 May 2025</p>
+            </div>
+        </a>
+            <div class="designer-card">
+                <div class="designer-image">
+                    <img src="images/DD.jpg" alt="Designer 2" />
+                </div>
+                <h2>DILJIT DOSANJH</h2>
+                <p>Classic elegance meets modern style.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <h1>Upcoming Events</h1>
+        <div class="events-container">
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="images/img2.png" alt="Event 1" />
+                </div>
+                <h2>Fashion Show 2025</h2>
+                <p>Join us for an evening of fashion and glamour.</p>
+            </div>
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="images/img3.png" alt="Event 2" />
+                </div>
+                <h2>Designer Showcase</h2>
+                <p>Featuring the latest collections from top designers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-content">
+            <h1>Contact Us</h1>
+         <div class="contact-number">   
+            <h3>011-22-555</h3>
+        </div>   
+            <p>Get in touch with us for more information.</p>
+            <div class="contact-form">
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <textarea placeholder="Message"></textarea>
+                <button class="btn">Send Message</button>
+            </div>
+          
+        </div>
+    </section>
+
+    <div class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-image" src="" alt="Lightbox Image" />
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            if (scroll > 50) {
+                document.querySelector('nav').style.background = 'rgba(0, 0, 0, 0.8)';
+            } else {
+                document.querySelector('nav').style.background = 'transparent';
+            }
+        });
+
+        const collectionCards = document.querySelectorAll('.collection-card, .designer-card, .event-card');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImage = document.querySelector('#lightbox-image');
+
+        collectionCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const image = card.querySelector('img');
+                if (image) {
+                    lightboxImage.src = image.src;
+                    lightbox.classList.add('active');
+                }
+            });
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1296 @@
+/* Reset & base */
+:root {
+    /* Light Mode (Sophisticated Dark) */
+    --bg-primary: #0A0A0A; /* Deep charcoal */
+    --text-primary: #EEEEEE; /* Soft white */
+    --text-secondary: #BBBBBB; /* Lighter grey for subtle text */
+    --link-accent: #B08D57; /* Refined gold/bronze accent */
+    --link-hover: #D4AF37; /* Brighter gold on hover */
+    --border-light: #2C2C2C; /* Dark border for elements */
+    --card-bg: #1A1A1A; /* Slightly lighter charcoal for cards */
+    --card-hover-bg: #2C2C2C; /* Darker charcoal on card hover */
+    --input-bg: #1A1A1A;
+    --input-border: #444444;
+    --shadow-light: rgba(0,0,0,0.2);
+    --shadow-medium: rgba(0,0,0,0.4);
+    --shadow-strong: rgba(0,0,0,0.6);
+    --video-filter: brightness(0.8) contrast(1.2) saturate(1.1); /* Much more visible video */
+    --overlay-gradient: linear-gradient(to top, rgba(10,10,10,0.5), rgba(10,10,10,0)); /* Subtle overlay */
+    --modal-bg: rgba(26, 26, 26, 0.98); /* Near black, slightly transparent */
+    --modal-text: #EEEEEE;
+    --modal-border: #444444;
+    --gallery-nav-bg: rgba(26, 26, 26, 0.8); /* Darker nav for gallery */
+}
+
+/* Dark Mode (Subtle adjustment for true dark experience, keeping the rich tones) */
+body.dark-mode {
+    --bg-primary: #000000; /* Pure black for ultimate contrast */
+    --text-primary: #FAFAFA;
+    --text-secondary: #CCCCCC;
+    --link-accent: #D4AF37; /* Gold accent becomes slightly brighter */
+    --link-hover: #EBB60F; /* Even brighter gold on hover */
+    --border-light: #333333;
+    --card-bg: #0A0A0A; /* Matches light mode bg for consistency in dark mode */
+    --card-hover-bg: #1A1A1A;
+    --input-bg: #0A0A0A;
+    --input-border: #555555;
+    --shadow-light: rgba(0,0,0,0.4);
+    --shadow-medium: rgba(0,0,0,0.6);
+    --shadow-strong: rgba(0,0,0,0.8);
+    --video-filter: brightness(0.5) contrast(1.2) saturate(1.1); /* Darker video for dark mode */
+    --overlay-gradient: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+    --modal-bg: rgba(0, 0, 0, 0.98);
+    --modal-text: #FAFAFA;
+    --modal-border: #555555;
+    --gallery-nav-bg: rgba(0, 0, 0, 0.85);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background 0.7s ease, color 0.7s ease; /* Slower, smoother transition for theme change */
+}
+a {
+    color: var(--link-accent);
+    text-decoration: none;
+    transition: all 0.4s ease-in-out; /* Smoother link transitions */
+}
+a:hover,
+a:focus {
+    color: var(--link-hover);
+    outline: none;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: transparent; /* Always transparent initially */
+    padding: 1.2rem 3%; /* Slightly larger padding */
+    z-index: 1000;
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+    user-select: none;
+}
+nav.scrolled {
+    background: var(--modal-bg); /* Use modal background for a consistent dark, refined feel */
+    box-shadow: 0 4px 20px var(--shadow-medium); /* More pronounced shadow */
+    border-bottom: 1px solid var(--border-light);
+}
+nav .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; /* Larger, more elegant logo */
+    font-weight: 700;
+    color: var(--link-accent); /* Logo uses accent color */
+    text-shadow: 0 0 12px rgba(176, 141, 87, 0.5); /* Subtle glow for logo */
+    cursor: default;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.nav-links {
+    display: flex;
+    gap: 3rem; /* Increased gap */
+}
+.nav-links a {
+    position: relative;
+    color: var(--text-primary); /* Links are primary text color */
+    padding: 0.25rem 0;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Slightly lower underline */
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--link-accent);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Hamburger */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 28px;
+    height: 24px;
+}
+.hamburger div {
+    width: 100%;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+.hamburger.active div:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+@media (max-width: 768px) {
+    .nav-links {
+        top: 55px; /* Adjusted to fit new nav padding */
+        right: -100%;
+        background: var(--modal-bg); /* Darker mobile menu */
+        height: calc(100vh - 55px);
+        width: 280px;
+        flex-direction: column;
+        padding: 2.5rem 2rem;
+        gap: 2rem;
+        transition: right 0.4s ease;
+        border-left: 1px solid var(--border-light);
+        box-shadow: -5px 0 20px var(--shadow-medium);
+        z-index: 999;
+    }
+    .nav-links.active {
+        right: 0;
+    }
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.6rem; /* Slightly larger icon */
+    cursor: pointer;
+    color: var(--text-secondary);
+    margin-left: 2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem; /* Slightly more padding */
+    border-radius: 50%;
+}
+.theme-toggle:hover {
+    color: var(--link-accent);
+    transform: scale(1.15); /* More pronounced hover */
+}
+.theme-toggle .icon {
+    display: block;
+    width: 26px; /* Larger SVG icons */
+    height: 26px;
+    fill: currentColor;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    overflow: hidden; /* Ensure video doesn't overflow */
+}
+.video-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers entire area */
+    z-index: -1;
+    filter: var(--video-filter);
+    transition: filter 0.5s ease;
+}
+.hero-content {
+    color: #FFFFFF;
+    max-width: 1000px; /* Wider content area */
+    position: relative; /* To be above the video, though z-index -1 already helps */
+}
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 4.8rem; /* Significantly reduced size for better readability and balance */
+    text-transform: uppercase;
+    letter-spacing: 0.15em; /* Adjusted spacing */
+    margin-bottom: 1.5rem;
+    color: #FFFFFF;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5); /* Stronger, layered shadow for readability */
+    line-height: 1.05; /* Tighter line height */
+}
+.hero-subtitle {
+    font-weight: 300; /* Lighter weight for elegance */
+    font-size: 2rem; /* Adjusted subtitle size */
+    max-width: 700px; /* Wider subtitle */
+    margin: 0 auto 4rem; /* Increased bottom margin */
+    font-style: italic; /* A touch of elegance */
+    letter-spacing: 0.08em;
+    color: #DDDDDD; /* Slightly off-white for subtitle */
+    opacity: 0.95;
+    text-shadow: 0 0 8px rgba(0,0,0,0.5); /* Subtle shadow for readability */
+}
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem; /* Increased gap */
+}
+.hero-button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Medium bold */
+    font-size: 1.15rem;
+    padding: 1.1rem 3rem; /* Larger padding */
+    border: 2px solid var(--link-accent); /* Accent border */
+    color: var(--link-accent);
+    background: transparent;
+    border-radius: 40px; /* More rounded, elegant button shape */
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 0 0 transparent; /* Initial transparent shadow */
+}
+.hero-button.view-collections-button:hover {
+    background: var(--link-accent);
+    color: var(--bg-primary); /* Text color matches new primary background */
+    box-shadow: 0 8px 30px rgba(176, 141, 87, 0.7); /* Stronger, golden glow */
+    transform: translateY(-5px) scale(1.02);
+}
+.hero-button.event-schedule-button {
+    border-color: #666666; /* Darker grey border */
+    color: #BBBBBB; /* Lighter grey text */
+}
+.hero-button.event-schedule-button:hover {
+    background: #666666;
+    color: #FFFFFF;
+    box-shadow: 0 8px 30px rgba(102,102,102,0.6);
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Sections common styling */
+section {
+    padding: 7rem 6vw 9rem; /* More generous padding */
+    max-width: 1500px; /* Wider content area */
+    margin: 0 auto;
+    position: relative;
+}
+h1.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 4.5rem; /* Larger section titles */
+    margin-bottom: 4rem; /* More space below title */
+    color: var(--text-primary);
+    letter-spacing: 0.15em; /* More spacious */
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px var(--shadow-light); /* Subtle text shadow */
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: inherit;
+    position: relative;
+}
+h1.section-title::after {
+    content: '';
+    display: block;
+    width: 100px; /* Longer underline */
+    height: 5px; /* Thicker underline */
+    background: var(--link-accent);
+    margin: 1.5rem auto 0;
+    border-radius: 2px; /* Slightly rounded */
+    box-shadow: 0 0 15px rgba(176, 141, 87, 0.5); /* Golden glow */
+}
+
+
+/* About Section */
+#about {
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    padding: 7rem 6vw; /* Consistent padding */
+    display: flex;
+    align-items: center;
+    gap: 4rem; /* Increased gap */
+    max-width: 1600px; /* Even wider section */
+    margin: 6rem auto 10rem; /* More vertical space */
+    border-radius: 20px; /* More rounded */
+    box-shadow: 0 10px 40px var(--shadow-medium); /* More substantial shadow */
+}
+
+.about-video {
+    flex: 1;
+    max-width: 50%;
+    border-radius: 15px; /* More rounded */
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-strong);
+    position: relative;
+}
+.about-video::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--overlay-gradient);
+    z-index: 1;
+}
+
+.about-video .video2-bg {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.about-content {
+    flex: 1;
+    max-width: 50%;
+}
+
+.about-content p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem; /* Slightly larger font */
+    line-height: 1.75;
+    opacity: 0.95;
+    color: var(--text-secondary);
+}
+
+.about-content .about-text {
+    font-weight: 300; /* Lighter font for body text */
+}
+
+.about-content .highlight {
+    color: var(--link-accent);
+    font-weight: 600; /* Bolder highlight */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #about {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+        padding: 5rem 5vw;
+        border-radius: 10px;
+        margin-bottom: 7rem;
+    }
+
+    .about-video {
+        max-width: 100%;
+        margin: 0 auto 2rem;
+        border-radius: 10px;
+    }
+
+    .about-content {
+        max-width: 100%;
+        text-align: center;
+    }
+    .about-content p {
+        font-size: 1rem;
+    }
+}
+
+
+/* Collections grid revamped */
+#collections {
+    background: var(--bg-primary);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--shadow-medium);
+    margin-bottom: 8rem; /* More space */
+}
+.collections-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larger min width */
+    gap: 3.5rem; /* Increased gap */
+    padding: 0 1.5rem 3rem; /* More padding */
+}
+.collection-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 15px; /* More rounded */
+    overflow: hidden;
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    cursor: pointer;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-secondary);
+    will-change: transform, box-shadow;
+}
+.collection-card:hover {
+    transform: translateY(-8px) scale(1.01); /* More noticeable lift */
+    box-shadow: 0 15px 40px var(--shadow-strong); /* Stronger shadow on hover */
+    background: var(--card-hover-bg);
+    z-index: 5;
+}
+.collection-image {
+    position: relative;
+    height: 350px; /* Taller images */
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+}
+.collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-out, filter 0.4s ease-out;
+    filter: brightness(0.9) contrast(1.05); /* Subtle initial filter */
+}
+.collection-card:hover .collection-image img {
+    transform: scale(1.08); /* More zoom */
+    filter: brightness(1) contrast(1.1) saturate(1.1); /* Brighter, more vibrant on hover */
+}
+.collection-title {
+    position: absolute;
+    bottom: 25px; /* Slightly higher */
+    left: 25px;
+    right: 25px;
+    background: rgba(0,0,0,0.6); /* Darker, semi-transparent background */
+    backdrop-filter: blur(8px); /* More pronounced glassmorphism */
+    padding: 1rem 2rem; /* Larger padding */
+    border-radius: 10px; /* Sharp corners for contrast */
+    font-family: 'Playfair Display', serif; /* Serif for titles */
+    font-weight: 700;
+    font-size: 1.8rem; /* Larger title */
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #FFFFFF; /* White text for strong contrast */
+    transition: background 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+body.dark-mode .collection-title {
+    background: rgba(0,0,0,0.7); /* Consistent dark overlay in dark mode */
+}
+
+.collection-card:hover .collection-title {
+    background: var(--link-accent); /* Accent background on hover */
+    color: var(--bg-primary); /* Text color matching primary background */
+}
+.collection-info {
+    padding: 2.5rem 2.5rem 2.5rem; /* More balanced padding */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    flex-grow: 1;
+    text-align: left;
+    border-top: 1px solid var(--border-light);
+    margin-top: auto;
+    padding-top: 6.5rem; /* Adjusted for title overlap fix */
+}
+.collection-info p {
+    margin-bottom: 0;
+}
+.view-more-button {
+    background: var(--link-accent);
+    border: none;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    padding: 1rem 3.5rem;
+    border-radius: 40px;
+    margin: 4rem auto 4rem;
+    display: block;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 5px 15px rgba(176, 141, 87, 0.4); /* Golden glow shadow */
+}
+.view-more-button:hover {
+    background: var(--link-hover);
+    color: var(--bg-primary);
+    box-shadow: 0 10px 30px rgba(176, 141, 87, 0.7);
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Designers Section */
+#designers {
+    background: var(--card-bg); /* Use card background */
+    padding-top: 6rem;
+    margin-bottom: 7rem; /* More space */
+}
+#designers h1 {
+    text-align: center;
+    color: var(--text-primary);
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 4.5rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 4rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px var(--shadow-light);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: inherit;
+}
+#designers h1::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 5px;
+    background: var(--link-accent);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(176, 141, 87, 0.5);
+}
+.designers-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 3.5rem;
+    padding: 0 1.5rem;
+}
+.designer-card {
+    background: var(--bg-primary); /* Darker background for designer cards */
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-secondary);
+    will-change: transform, box-shadow;
+}
+.designer-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 40px var(--shadow-strong);
+    background: var(--card-hover-bg);
+}
+.designer-image {
+    height: 280px; /* Taller images */
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+}
+.designer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.05);
+    transition: transform 0.4s ease-out, filter 0.4s ease-out;
+    display: block;
+}
+.designer-card:hover .designer-image img {
+    transform: scale(1.08);
+    filter: brightness(1) contrast(1.1) saturate(1.1);
+}
+.designer-card h2 {
+    padding: 1.8rem 2rem 0.8rem; /* More generous padding */
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6rem; /* Larger title */
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+}
+.designer-card h3 {
+    padding: 0 2rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; /* Lighter weight */
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+}
+
+/* Events Section (Weddings) */
+#weddings {
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    padding: 7rem 6vw 9rem;
+    max-width: 1500px;
+    margin: 6rem auto 10rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--shadow-medium);
+}
+#weddings h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 4.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    text-shadow: 0 0 15px var(--shadow-light);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: inherit;
+}
+#weddings h1::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 5px;
+    background: var(--link-accent);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(176, 141, 87, 0.5);
+}
+.weddings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3.5rem;
+    padding: 0 1.5rem;
+}
+.weddings article {
+    background: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    cursor: pointer;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-secondary);
+    will-change: transform, box-shadow;
+}
+.weddings article:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 40px var(--shadow-strong);
+    background: var(--card-hover-bg);
+}
+.weddings article img {
+    width: 100%;
+    height: 280px; /* Taller images */
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.05);
+    transition: filter 0.4s ease-out, transform 0.4s ease-out;
+    border-radius: 15px 15px 0 0;
+}
+.weddings article:hover img {
+    filter: brightness(1) saturate(1.1) contrast(1.1);
+    transform: scale(1.08);
+}
+.weddings h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 1.8rem 2rem 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+}
+.weddings p {
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 2rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-top: 0;
+}
+
+/* Contact Section */
+#contact {
+    padding: 6rem 6vw 8rem;
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    max-width: 750px; /* Wider contact form */
+    margin: 6rem auto 10rem;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--shadow-medium);
+    font-family: 'Montserrat', sans-serif;
+}
+#contact h1.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-size: 4rem; /* Larger title */
+    margin-bottom: 3.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px var(--shadow-light);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: inherit;
+}
+#contact h1.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--link-accent);
+    margin: 1.2rem auto 0;
+    border-radius: 1.5px;
+    box-shadow: 0 0 12px rgba(176, 141, 87, 0.4);
+}
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem; /* Increased gap */
+}
+.contact-number h3 {
+    font-size: 3rem; /* Larger number */
+    color: var(--link-accent);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+.contact-content p {
+    font-size: 1.15rem; /* Slightly larger text */
+    font-weight: 300;
+    margin: 0 auto;
+    max-width: 90%;
+    color: var(--text-secondary);
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Increased gap */
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+.contact-form input[type='text'],
+.contact-form input[type='email'],
+.contact-form textarea {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 10px; /* More rounded */
+    padding: 18px 22px; /* Larger padding */
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    resize: vertical;
+    min-height: 60px; /* Taller inputs */
+}
+.contact-form input[type='text']:focus,
+.contact-form input[type='email']:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--link-accent);
+    box-shadow: 0 0 15px rgba(176, 141, 87, 0.5); /* Golden glow on focus */
+    background: var(--card-hover-bg);
+    color: var(--text-primary);
+}
+.contact-form textarea {
+    min-height: 160px; /* Taller textarea */
+}
+.btn {
+    background-color: var(--link-accent);
+    border: 2px solid var(--link-accent);
+    color: #FFFFFF;
+    padding: 1.1rem 3.5rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.4s ease,
+        box-shadow 0.4s ease, transform 0.4s ease;
+    align-self: center;
+    box-shadow: 0 5px 20px rgba(176, 141, 87, 0.4);
+}
+.btn:hover,
+.btn:focus {
+    background-color: var(--link-hover);
+    color: var(--bg-primary);
+    box-shadow: 0 12px 40px rgba(176, 141, 87, 0.7);
+    transform: translateY(-5px) scale(1.01);
+    outline: none;
+}
+
+/* Form Feedback Message */
+#form-feedback-message {
+    opacity: 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-top: 30px;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out, background-color 0.3s ease;
+    box-shadow: 0 2px 10px var(--shadow-light);
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.95); /* Even darker, more opaque */
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    cursor: zoom-out;
+}
+.lightbox.active {
+    display: flex;
+}
+.lightbox img {
+    max-width: 90vw; /* Larger image in lightbox */
+    max-height: 90vh; /* Larger image in lightbox */
+    border-radius: 10px;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 30px var(--link-accent); /* Stronger dark shadow, subtle accent glow */
+}
+.close-btn {
+    position: fixed;
+    top: 25px; /* Closer to top */
+    right: 25px;
+    font-size: 3.2rem; /* Larger close button */
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    z-index: 10001;
+}
+.close-btn:hover {
+    color: var(--link-accent); /* Accent color on hover */
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Scroll-to-top button */
+#scroll-to-top {
+    position: fixed;
+    bottom: 30px; /* Slightly higher */
+    right: 30px;
+    background: var(--link-accent);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 60px; /* Larger button */
+    height: 60px; /* Larger button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem; /* Larger icon */
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(176, 141, 87, 0.6); /* Golden glow shadow */
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+}
+#scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+#scroll-to-top:hover {
+    background: var(--link-hover);
+    transform: translateY(-5px); /* More pronounced lift */
+}
+
+/* Event Schedule Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8); /* Darker overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    margin: auto;
+    padding: 40px; /* More padding */
+    border-radius: 15px; /* More rounded */
+    border: 1px solid var(--modal-border);
+    width: 85%; /* Slightly wider */
+    max-width: 800px; /* Larger max-width */
+    box-shadow: 0 8px 30px var(--shadow-medium);
+    position: relative;
+    transform: translateY(-30px); /* More pronounced entry */
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    color: var(--modal-text);
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-close-btn {
+    color: var(--modal-text);
+    position: absolute;
+    top: 20px; /* Adjusted position */
+    right: 30px;
+    font-size: 40px; /* Larger close button */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: var(--link-accent);
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; /* Larger modal title */
+    margin-bottom: 25px;
+    color: var(--link-accent);
+    text-align: center;
+    text-shadow: 0 0 10px rgba(176, 141, 87, 0.3);
+}
+
+.event-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-list li {
+    background-color: var(--card-bg); /* Use card background for list items */
+    padding: 20px 25px; /* More padding */
+    margin-bottom: 12px; /* More margin */
+    border-radius: 10px;
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Increased gap */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.event-list li:hover {
+    background-color: var(--card-hover-bg);
+    border-color: var(--link-accent);
+}
+
+.event-list strong {
+    color: var(--text-primary);
+    font-size: 1.2rem; /* Larger font */
+    font-weight: 600;
+}
+
+.event-list span {
+    font-size: 0.95rem; /* Slightly larger */
+    color: var(--text-secondary);
+}
+
+/* Image Carousel/Gallery */
+#gallery {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--shadow-medium);
+    margin-bottom: 8rem;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 1000px; /* Wider carousel */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px var(--shadow-medium);
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother transition */
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 550px; /* Taller images for consistency */
+    object-fit: cover;
+    display: block;
+    border-radius: 15px;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--gallery-nav-bg);
+    color: #FFFFFF; /* White arrows */
+    border: none;
+    padding: 18px 22px; /* Larger padding for better touch target */
+    cursor: pointer;
+    font-size: 2rem; /* Larger arrows */
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+.carousel-prev {
+    left: 20px; /* More inset */
+}
+
+.carousel-next {
+    right: 20px; /* More inset */
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background-color: var(--link-accent);
+    color: var(--bg-primary); /* Text color matches primary bg */
+    transform: translateY(-50%) scale(1.05); /* Subtle scale */
+    opacity: 1;
+}
+
+.carousel-dots {
+    text-align: center;
+    padding: 20px 0; /* More padding */
+    background-color: var(--card-bg);
+    border-radius: 0 0 15px 15px;
+    border-top: 1px solid var(--border-light);
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 14px; /* Larger dots */
+    height: 14px;
+    margin: 0 6px;
+    background-color: var(--input-border); /* Subtle grey for inactive */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: var(--link-accent);
+    transform: scale(1.2); /* Active dot is larger */
+}
+.carousel-dot:hover {
+    background-color: var(--link-accent); /* Highlight on hover */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    h1.section-title {
+        font-size: 3.8rem;
+    }
+    .hero-title {
+        font-size: 4rem; /* Adjusted for smaller screens */
+        letter-spacing: 0.12em;
+    }
+    .hero-subtitle {
+        font-size: 1.8rem;
+    }
+    .collection-image {
+        height: 300px;
+    }
+    .collection-title {
+        font-size: 1.6rem;
+    }
+    .designer-image {
+        height: 240px;
+    }
+    .designer-card h2 {
+        font-size: 1.4rem;
+    }
+    .weddings article img {
+        height: 240px;
+    }
+    .weddings h2 {
+        font-size: 1.4rem;
+    }
+    .carousel-slide img {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 5%;
+    }
+    nav .logo {
+        font-size: 2rem;
+    }
+    .hero-title {
+        font-size: 3.2rem; /* Further adjusted for mobile */
+        letter-spacing: 0.1em;
+    }
+    .hero-subtitle {
+        font-size: 1.4rem;
+        margin-bottom: 2.5rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+    .hero-button {
+        width: 90%;
+        max-width: 300px;
+        font-size: 1rem;
+        padding: 0.9rem 2.5rem;
+    }
+    section {
+        padding: 5rem 5vw 6rem;
+    }
+    h1.section-title {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+    }
+    h1.section-title::after {
+        width: 80px;
+    }
+    .collections-container, .designers-container, .weddings {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 0;
+    }
+    .collection-card, .designer-card, .weddings article {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+    .collection-image, .designer-image, .weddings article img {
+        height: 280px;
+    }
+    .collection-title {
+        font-size: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+    }
+    .collection-info, .designer-card h2, .designer-card h3, .weddings h2, .weddings p {
+        padding: 1.5rem 1.8rem;
+    }
+    .view-more-button {
+        width: 90%;
+        max-width: 300px;
+        font-size: 1rem;
+        padding: 0.8rem 2.8rem;
+        margin: 3rem auto;
+    }
+    #contact {
+        padding: 5rem 5vw;
+        margin-bottom: 6rem;
+    }
+    #contact h1.section-title {
+        font-size: 2.8rem;
+    }
+    .contact-number h3 {
+        font-size: 2.5rem;
+    }
+    .contact-content p {
+        font-size: 1.05rem;
+    }
+    .contact-form input, .contact-form textarea {
+        padding: 15px 18px;
+        font-size: 1rem;
+    }
+    .contact-form textarea {
+        min-height: 120px;
+    }
+    .btn {
+        font-size: 1.05rem;
+        padding: 0.9rem 3rem;
+    }
+    .lightbox img {
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+    .close-btn {
+        font-size: 2.8rem;
+        top: 20px;
+        right: 20px;
+    }
+    .modal-content {
+        width: 90%;
+        padding: 30px;
+    }
+    .modal-content h2 {
+        font-size: 2.2rem;
+    }
+    .event-list li {
+        padding: 15px 20px;
+    }
+    .carousel-slide img {
+        height: 350px;
+    }
+    .carousel-prev, .carousel-next {
+        font-size: 1.8rem;
+        padding: 12px;
+    }
+    .carousel-dot {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.8rem;
+        letter-spacing: 0.08em;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 1.8rem;
+    }
+    h1.section-title {
+        font-size: 2.2rem;
+        letter-spacing: 0.1em;
+    }
+    .collection-title {
+        font-size: 1.2rem;
+    }
+    .collection-info p {
+        font-size: 0.95rem;
+    }
+    .designer-card h2, .weddings h2 {
+        font-size: 1.2rem;
+    }
+    .carousel-slide img {
+        height: 250px;
+    }
+    #scroll-to-top {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
+    }
+    .modal-content h2 {
+        font-size: 1.8rem;
+    }
+    .event-list strong {
+        font-size: 1rem;
+    }
+    .event-list span {
+        font-size: 0.85rem;
+    }
+}
